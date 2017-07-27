@@ -9,7 +9,9 @@ addPaciente.addEventListener("click", function(event){
   // pega info do paciente através do form
   var paciente = obtemPacienteDoForm(form);
 
-  if(validaPaciente(paciente)) {
+  var erros = validaPaciente(paciente);
+  exibeErros(erros);
+  if(erros.length == 0) {
 
     // monta tag tr baseado no paciente extraído do form
     var pacienteTr = montaTr(paciente);
@@ -21,7 +23,7 @@ addPaciente.addEventListener("click", function(event){
     form.reset();
 
   } else {
-    console.log("paciente inválido!");
+    console.log(erros);
   }
 
 });
@@ -64,9 +66,25 @@ function montaTd(dado, classe) {
 }
 
 function validaPaciente(paciente) {
-  if(validaPeso(paciente.peso) && validaAltura(paciente.altura)) {
-    return true;
-  } else {
-    return false;
-  }
+
+  var erros = [];
+
+  if(paciente.nome.length == 0) erros.push("nome inválido!");
+  if(!validaPeso(paciente.peso)) erros.push("peso inválido!");
+  if(!validaAltura(paciente.altura)) erros.push("altura inválida!");
+  if(paciente.gordura.length == 0) erros.push("gordura inválida!");
+
+  return erros;
+}
+
+function exibeErros(erros) {
+  var ul = document.querySelector(".mensagem-erro");
+  ul.innerHTML = "";
+
+  erros.forEach(function(erro) {
+    var li = document.createElement("li");
+    li.textContent = erro;
+    ul.appendChild(li);
+  });
+
 }
