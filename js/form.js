@@ -9,14 +9,20 @@ addPaciente.addEventListener("click", function(event){
   // pega info do paciente através do form
   var paciente = obtemPacienteDoForm(form);
 
-  // monta tag tr baseado no paciente extraído do form
-  var pacienteTr = montaTr(paciente);
+  if(validaPaciente(paciente)) {
 
-  // acha a tabela no DOM e insere a nova tr nela
-  var tabela = document.querySelector("#tabela-pacientes");
-  tabela.appendChild(pacienteTr);
+    // monta tag tr baseado no paciente extraído do form
+    var pacienteTr = montaTr(paciente);
 
-  form.reset();
+    // acha a tabela no DOM e insere a nova tr nela
+    var tabela = document.querySelector("#tabela-pacientes");
+    tabela.appendChild(pacienteTr);
+
+    form.reset();
+
+  } else {
+    console.log("paciente inválido!");
+  }
 
 });
 
@@ -55,4 +61,12 @@ function montaTd(dado, classe) {
 
   return td;
 
+}
+
+function validaPaciente(paciente) {
+  if(validaPeso(paciente.peso) && validaAltura(paciente.altura)) {
+    return true;
+  } else {
+    return false;
+  }
 }
