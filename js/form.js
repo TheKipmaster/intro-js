@@ -13,12 +13,7 @@ addPaciente.addEventListener("click", function(event){
   exibeErros(erros);
   if(erros.length == 0) {
 
-    // monta tag tr baseado no paciente extraído do form
-    var pacienteTr = montaTr(paciente);
-
-    // acha a tabela no DOM e insere a nova tr nela
-    var tabela = document.querySelector("#tabela-pacientes");
-    tabela.appendChild(pacienteTr);
+    adicionaPacienteNaTabela(paciente);
 
     form.reset();
 
@@ -27,6 +22,16 @@ addPaciente.addEventListener("click", function(event){
   }
 
 });
+
+function adicionaPacienteNaTabela(paciente) {
+
+  // monta tag tr baseado no paciente extraído do form
+  var pacienteTr = montaTr(paciente);
+
+  // acha a tabela no DOM e insere a nova tr nela
+  var tabela = document.querySelector("#tabela-pacientes");
+  tabela.appendChild(pacienteTr);
+}
 
 function obtemPacienteDoForm(form) {
 
