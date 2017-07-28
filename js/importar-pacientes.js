@@ -9,12 +9,22 @@ botaoImportar.addEventListener("click", function(event) {
 
   xhr.addEventListener("load", function() {
 
-    var resposta = xhr.responseText;
-    var pacientes = JSON.parse(resposta);
+    if(xhr.status == 200) {
 
-    pacientes.forEach(function(paciente) {
-      adicionaPacienteNaTabela(paciente);
-    });
+      var resposta = xhr.responseText;
+      var pacientes = JSON.parse(resposta);
+
+      pacientes.forEach(function(paciente) {
+        adicionaPacienteNaTabela(paciente);
+      });
+
+    } else {
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+      erro = document.querySelector("#erro-ajax");
+      erro.classList.add("mensagem-erro");
+      erro.classList.remove("invisivel");
+    }
   });
 
   xhr.send();
